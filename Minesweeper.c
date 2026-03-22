@@ -18,10 +18,15 @@ void op(int y,int z,int i,int j,char a[][25],char b[][25]){
                 op(y+k,z+l,i,j,a,b);
 }
 
-int main(){
+int main1(){
     srand(time(0));
     int i,j,k,s,t,x,f;
+    printf("簡單模式輸入1\n普通模式輸入2\n困難模式輸入3\n");
     scanf("%d",&k);
+    while(k!=1&&k!=2&&k!=3){
+        printf("輸入錯誤 請重新輸入");
+        scanf("%d",&k);
+    }
     if(k==1){
         i=9;
         j=9;
@@ -37,6 +42,7 @@ int main(){
         j=25;
         f=110;
     }
+
     char a[25][25],b[25][25];
     for(s=0;s<i;s++){
         for(t=0;t<j;t++)
@@ -85,27 +91,27 @@ int main(){
             a[s][t]='@';
         }
     }
-int count=0;
-for(s=0;s<i;s++){
-    for(t=0;t<j;t++){
-        if(a[s][t]=='@')
-            continue;
-        count=0;
-        for(int n=-1;n<=1;n++){
-            for(int m=-1;m<=1;m++){
-                if(n==0&&m==0)
-                    continue;
-                int y=s+n;
-                int z=t+m;
-                if(y>=0&&y<i&&z>=0&&z<j){
-                    if(a[y][z]=='@')
-                        count++;
+    int count=0;
+    for(s=0;s<i;s++){
+        for(t=0;t<j;t++){
+            if(a[s][t]=='@')
+                continue;
+            count=0;
+            for(int n=-1;n<=1;n++){
+                for(int m=-1;m<=1;m++){
+                    if(n==0&&m==0)
+                        continue;
+                    int y=s+n;
+                    int z=t+m;
+                    if(y>=0&&y<i&&z>=0&&z<j){
+                        if(a[y][z]=='@')
+                            count++;
+                    }
                 }
             }
+            a[s][t]=count+'0';
         }
-        a[s][t]=count+'0';
     }
-}
 
     printf("   ");
     for(t=1;t<j+1;t++)
@@ -119,23 +125,31 @@ for(s=0;s<i;s++){
     }
 
     int y,z;
+    printf("輸入要翻開的座標\n");
     scanf("%d %d",&z,&y);
     while(y>i||y<=0||z>j||z<=0){
-        printf("沒有這格\n");
+        printf("沒有這格\n請重新輸入");
         scanf("%d %d",&z,&y);
     }
 
-    int un=0;
+    int un;
     while(a[y-1][z-1]!='@'){
         if(b[y-1][z-1]!='X'){
             printf("翻過了\n");
         }
         else{
             op(y-1,z-1,i,j,a,b);
-            if(un==i*j-f){
+            for(s=0;s<i;s++){
+                for(t=0;t<j;t++){
+                    if(b[s][t]=='X')
+                        un++;
+                }
+            }
+            if(un==f){
                 printf("你贏了!");
                 return 0;
             }
+            un=0;
         }
         printf("   ");
         for(t=1;t<j+1;t++)
@@ -147,9 +161,28 @@ for(s=0;s<i;s++){
                 printf("%3c",b[s][t]);
             printf("\n");
         }
+        printf("輸入要翻開的座標\n");
         scanf("%d %d",&z,&y);
+        while(y>i||y<=0||z>j||z<=0){
+            printf("沒有這格\n請重新輸入");
+            scanf("%d %d",&z,&y);
+        }
     }
     if(a[y-1][z-1]=='@')
         printf("踩到地雷了!");
     return 0;
+}
+
+int main(){
+    main1();
+    printf("要再玩一次嗎\n要請輸入1\n不要請輸入其他數字\n");
+    int a;
+    scanf("%d",&a);
+    if(a!=1){
+        printf("感謝遊玩!");
+        exit(0);
+    }
+    while(a==1){
+        main();
+    }
 }
