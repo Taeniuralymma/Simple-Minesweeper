@@ -1,6 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <windows.h>
+
+void skip(){
+    system("cls");
+}
+
+void co(int a){
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),a);
+}
 
 void op(int y,int z,int i,int j,char a[][25],char b[][25]){
     if(y<0||y>=i||z<0||z>=j)
@@ -35,7 +44,7 @@ int main1(){
     else if(k==2){
         i=16;
         j=16;
-        f=70;
+        f=40;
     }
     else if(k==3){
         i=25;
@@ -67,7 +76,7 @@ int main1(){
         for(s=0;s<i;s++)
             for(t=0;t<j;t++)
                 a[s][t]='X';
-        for(x=0;x<70;x++){
+        for(x=0;x<0;x++){
             s=rand()%i;
             t=rand()%j;
             while(a[s][t]=='@'){
@@ -113,14 +122,17 @@ int main1(){
         }
     }
 
+    skip();
     printf("   ");
     for(t=1;t<j+1;t++)
         printf("%3d",t);
     printf("\n");
     for(s=0;s<i;s++){
         printf("%3d",s+1);
-        for(t=0;t<j;t++)
+        for(t=0;t<j;t++){
+            co(7);
             printf("%3c",b[s][t]);
+        }
         printf("\n");
     }
 
@@ -151,14 +163,60 @@ int main1(){
             }
             un=0;
         }
+        skip();
         printf("   ");
         for(t=1;t<j+1;t++)
             printf("%3d",t);
         printf("\n");
         for(s=0;s<i;s++){
             printf("%3d",s+1);
-            for(t=0;t<j;t++)
-                printf("%3c",b[s][t]);
+            for(t=0;t<j;t++){
+                if(b[s][t]=='X'){
+                    co(7);
+                    printf("%3c",b[s][t]);
+                }
+                else if(b[s][t]=='0'){
+                    co(8);
+                    printf("%3c",b[s][t]);
+                }
+                else if(b[s][t]=='1'){
+                    co(1);
+                    printf("%3c",b[s][t]);
+                }
+                else if(b[s][t]=='2'){
+                    co(2);
+                    printf("%3c",b[s][t]);
+                }
+                else if(b[s][t]=='3'){
+                    co(4);
+                    printf("%3c",b[s][t]);
+                }
+                else if(b[s][t]=='4'){
+                    co(3);
+                    printf("%3c",b[s][t]);
+                }
+                else if(b[s][t]=='5'){
+                    co(6);
+                    printf("%3c",b[s][t]);
+                }
+                else if(b[s][t]=='6'){
+                    co(5);
+                    printf("%3c",b[s][t]);
+                }
+                else if(b[s][t]=='7'){
+                    co(9);
+                    printf("%3c",b[s][t]);
+                }
+                else if(b[s][t]=='8'){
+                    co(11);
+                    printf("%3c",b[s][t]);
+                }
+                else if(b[s][t]=='9'){
+                    co(14);
+                    printf("%3c",b[s][t]);
+                }
+                co(7);
+            }
             printf("\n");
         }
         printf("輸入要翻開的座標\n");
